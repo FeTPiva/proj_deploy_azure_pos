@@ -1,16 +1,45 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import super_requests as r
+
+import micro_db as db
+
+#como rodar - streamlit run app.py
+
+st.set_page_config(page_title="Dogs")
 
 
-st.title('Descubra sua idade por seu cachorro!')
+col1, col2, col3 = st.columns([2,4,2])
 
-input0 = st.selectbox('selecione a raça', ['raça1','raça2'])
+with col1:
+    st.write("")
 
-input1 = st.text_input('input 1')
+with col2:
+    st.image("https://images.pexels.com/photos/3478875/pexels-photo-3478875.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=400")
 
-subtmit_button = st.button('send')
+with col3:
+    st.write("")
 
-if subtmit_button:
-    st.text(f'{input1} {input0}')
+st.title('Descubra sua idade pelo seu cachorro!')
+
+raca = st.selectbox('selecione a raça', db.rasse_dogs)
+
+tipo_raca = st.selectbox('selecione o tipo de raça', db.rassentyp)
+age = st.text_input('digite o ano de nascimento (integer)')
+
+gender = st.radio('genero do dog', ['female','male'])
+
+if gender == 'female':
+    gender = 'w'
+else:
+    gender = 'm'
+
+cor = st.selectbox('selecione a cor do dog', db.cor_dogs)
+
+submit_button = st.button('send')
+
+if submit_button:
+
+    st.text(f'{raca}, {tipo_raca}, {age}, {gender}, {cor}')
 

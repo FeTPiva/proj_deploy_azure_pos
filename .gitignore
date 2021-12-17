@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+df_dogs.csv
+validando_o_df.ipynb
