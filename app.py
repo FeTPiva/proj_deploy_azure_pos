@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import super_requests as r
+import request_az as r
 
 import micro_db as db
 
@@ -26,7 +26,7 @@ st.title('Descubra sua idade pelo seu cachorro!')
 raca = st.selectbox('selecione a raça', db.rasse_dogs)
 
 tipo_raca = st.selectbox('selecione o tipo de raça', db.rassentyp)
-age = st.text_input('digite o ano de nascimento (integer)')
+age = st.text_input('digite o ano de nascimento do cachorro (integer)')
 
 gender = st.radio('genero do dog', ['female','male'])
 
@@ -37,9 +37,28 @@ else:
 
 cor = st.selectbox('selecione a cor do dog', db.cor_dogs)
 
+numero_random = st.text_input('escolha um numero (integer')
+
 submit_button = st.button('send')
 
 if submit_button:
 
-    st.text(f'{raca}, {tipo_raca}, {age}, {gender}, {cor}')
+    #st.text(f'{raca}, {tipo_raca}, {age}, {gender}, {cor}')
+    data_request = {
+        "data": [{
+            "Column2": numero_random, # deu merda no treino, ele pegou o id como feature ,-, 
+            "RASSE1": raca,
+            "RASSENTYP": tipo_raca,
+            "GEBURTSJAHR_HUND": age,
+            "GESCHLECHT_HUND": gender,
+            "HUNDEFARBE": cor
+        }]
+
+    }
+
+    resp = r.post_model(data_request)
+
+    st.text(f' Sua idade está provavelmente dentro do range: {resp["result"]}' )
+    
+
 

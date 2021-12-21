@@ -1,9 +1,9 @@
 import requests
-
+token = 'sdfsdfsdfs'
 
 def post_ia(dados):
     urlzao = ''
-    header = {'ver':'qual e'}
+    header = {'Authorization':f'Bearer {token}'}
 
     r = requests.post(urlzao, dados, headers=header)
 
